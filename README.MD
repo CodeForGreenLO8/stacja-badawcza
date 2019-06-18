@@ -4,7 +4,7 @@
 
 W tym repozytorium składowane będą **wszystkie** zasoby do projektu Stacji Badawczej Code For Green w VIII Liceum Ogólnokształcącym im. Adama Mickiewicza w Poznaniu.
 
-Prawo do pushowania mają tylko uczestnicy projektu.
+To repozytorium jest **publiczne**, więc miejcie to na uwadze wysyłając cokolwiek.
 
 ## O Wysyłaniu Swoich Zmian
 
