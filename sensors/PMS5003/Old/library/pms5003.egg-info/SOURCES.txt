@@ -1,0 +1,11 @@
+CHANGELOG.txt
+LICENSE.txt
+MANIFEST.in
+README.rst
+setup.cfg
+setup.py
+pms5003/__init__.py
+pms5003.egg-info/PKG-INFO
+pms5003.egg-info/SOURCES.txt
+pms5003.egg-info/dependency_links.txt
+pms5003.egg-info/top_level.txt
