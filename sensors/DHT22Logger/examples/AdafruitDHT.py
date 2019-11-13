@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 import mysql.connector
 import datetime
@@ -24,16 +26,6 @@ else:
     print('Example: sudo ./Adafruit_DHT.py 2302 4 10.0.0.172 3306 user pass db table - Read from an AM2302 connected to GPIO pin #4, insert entry to table with given db credentials')
     sys.exit(1)
 
-db = mysql.connector.connect(
-     host   = mysql_info['ip'],     # your host, usually localhost
-#    port   = mysql_info['port'],   # port - For some reason the script doesn't work with the port explicitly stated.
-     user   = mysql_info['user'],   # your username
-     passwd = mysql_info['passwd'], # your password
-     db     = mysql_info['db'])     # name of the database
-
-# you must create a Cursor object. It will let you execute all the queries you need
-cur = db.cursor()
-
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
 # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
 humidity = -1;
@@ -43,6 +35,16 @@ print(date)
 date_str = '{}-{}-{}'.format(str(date.year), str(date.month), str(date.day))
 time_str = '{}:{}:{}'.format(str(date.hour), str(date.minute), str(date.second))
 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+
+db = mysql.connector.connect(
+     host   = mysql_info['ip'],     # your host, usually localhost
+#    port   = mysql_info['port'],   # port - For some reason the script doesn't work with the port explicitly stated.
+     user   = mysql_info['user'],   # your username
+     passwd = mysql_info['passwd'], # your password
+     db     = mysql_info['db'])     # name of the database
+
+# you must create a Cursor object. It will let you execute all the queries you need
+cur = db.cursor()
 
 # Write the information to the database
 sql = "INSERT INTO {} (date, time, temperature, humidity) VALUES (%s, %s, %s, %s);".format(mysql_info['table'])

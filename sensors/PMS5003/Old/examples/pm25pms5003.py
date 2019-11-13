@@ -19,6 +19,17 @@ else:
     print('Example: python pms5003.py 10.0.0.172 3306 user pass db table')
     sys.exit(1)
 
+# Get a reading
+pms5003 = PMS5003()
+try:
+    data = pms5003.read()
+    pm1  = data.pm_ug_per_m3(1)
+    pm10 = data.pm_ug_per_m3(10)
+    pm25 = data.pm_ug_per_m3(2.5)
+except Exception as exception:
+    print('Caught exception: \'{}\'. PMS5003 reading failed.'.format(type(exception).__name__))
+    exit()
+
 db = mysql.connector.connect(
      host   = mysql_info['ip'],     # your host, usually localhost
 #    port   = mysql_info['port'],   # port - For some reason the script doesn't work with the port explicitly stated.
@@ -28,13 +39,6 @@ db = mysql.connector.connect(
 
 # You must create a Cursor object. It will let you execute all the queries you need
 cur = db.cursor()
-
-# Get a reading
-pms5003 = PMS5003()
-data = pms5003.read()
-pm1  = data.pm_ug_per_m3(1)
-pm10 = data.pm_ug_per_m3(10)
-pm25 = data.pm_ug_per_m3(2.5)
 
 # Get current date and time
 date = datetime.datetime.now();
