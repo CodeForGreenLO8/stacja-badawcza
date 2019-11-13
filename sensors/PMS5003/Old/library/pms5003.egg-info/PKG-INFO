@@ -1,4 +1,4 @@
-Metadata-Version: 1.2
+Metadata-Version: 1.1
 Name: pms5003
 Version: 0.0.1
 Summary: PMS5003 Particulate Sensor
@@ -6,7 +6,6 @@ Home-page: http://www.pimoroni.com
 Author: Philip Howard
 Author-email: phil@pimoroni.com
 License: MIT
-Project-URL: GitHub, https://www.github.com/pimoroni/pms5003-python
 Description: PMS5003 Particulate Sensor
         ==========================
         
