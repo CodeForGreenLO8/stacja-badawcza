@@ -1,0 +1,2 @@
+# Exclude python build files
+sensors/**/__pycache__
