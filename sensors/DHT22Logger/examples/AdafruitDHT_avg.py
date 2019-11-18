@@ -11,6 +11,7 @@ import sys
 import mysql.connector
 import datetime
 import Adafruit_DHT
+from time import sleep
 
 # Parse command line parameters.
 sensor_args = { '11': Adafruit_DHT.DHT11,
@@ -33,15 +34,25 @@ else:
     print('Example: sudo ./Adafruit_DHT.py 2302 4 10.0.0.172 3306 user pass db table - Read from an AM2302 connected to GPIO pin #4, insert entry to table with given db credentials')
     sys.exit(1)
 
-# Try to grab a sensor reading.  Use the read_retry method which will retry up
-# to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-humidity = -1;
-temperature = 100;
-date = datetime.datetime.now();
-print(date)
-date_str = '{}-{}-{}'.format(str(date.year), str(date.month), str(date.day))
-time_str = '{}:{}:{}'.format(str(date.hour), str(date.minute), str(date.second))
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+# Read sensor data multiple times and make an average
+READING_COUNT = 10
+humidity      = 0.0
+temperature   = 0.0
+date1 = datetime.datetime.now()
+print('{} | DHT22: {} readings pending...'.format(date1, READING_COUNT))
+for i in range(READING_COUNT):
+    date_str = '{}-{}-{}'.format(str(date.year), str(date.month), str(date.day))
+    time_str = '{}:{}:{}'.format(str(date.hour), str(date.minute), str(date.second))
+    # Try to grab a sensor reading. Use the read_retry method which will retry up
+    # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
+    h, t= Adafruit_DHT.read_retry(sensor, pin)
+    humidity += h
+    temperature += t
+    sleep(1)
+humidity    /= READING_COUNT
+temperature /= READING_COUNT
+date2 = datetime.datetime.now()
+print('{} | DHT22: Finished.'.format(date2))
 
 db = mysql.connector.connect(
      host   = mysql_info['ip'],     # your host, usually localhost

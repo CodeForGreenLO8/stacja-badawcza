@@ -1,2 +1,5 @@
 # Exclude python build files
 sensors/**/__pycache__
+
+# Exclude Vim session files
+sensors/**/Session.vim
