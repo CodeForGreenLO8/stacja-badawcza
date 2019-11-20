@@ -40,7 +40,7 @@ RETRY_MAX   = 15
 humidity    = 0.0
 temperature = 0.0
 date1 = datetime.datetime.now()
-print('{} | DHT22: {} readings pending...'.format(date1, read_count))
+print('I: AdafruitDHT_avg.py: {} | DHT22: {} readings pending...'.format(date1, read_count))
 # Each reading has up to RETRY_MAX chances to fail and be restarted
 for i in range(read_count):
     retry_count = 0
@@ -56,7 +56,7 @@ for i in range(read_count):
             temperature += t
             break
         except Exception as exception:
-            print('Caught exception: \'{}\'. DHT22 reading failed.'.format(type(exception).__name__))
+            print('W: AdafruitDHT_avg.py: Caught exception: \'{}\'. DHT22 reading failed.'.format(type(exception).__name__))
             retry_count += 1
             if retry_count < RETRY_MAX:
                 print('Retrying... x{}'.format(retry_count))
@@ -99,8 +99,6 @@ db.commit()
 # If this happens try again!
 if humidity is not None and temperature is not None:
     print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
-else:
-    print('Failed to get reading. Try again!')
 
 # Close the database
 db.close()

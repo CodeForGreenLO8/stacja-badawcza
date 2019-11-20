@@ -35,7 +35,7 @@ pm1  = 0.0
 pm10 = 0.0
 pm25 = 0.0
 date1 = datetime.datetime.now()
-print('{} | PMS5003: {} readings pending...'.format(date1, read_count))
+print('I: pm25pms5003_avg.py: {} | PMS5003: {} readings pending...'.format(date1, read_count))
 # Each reading has up to RETRY_MAX chances to fail and be restarted
 for i in range(read_count):
     retry_count = 0
@@ -55,7 +55,7 @@ for i in range(read_count):
             pm25 += p25
             break
         except Exception as exception:
-            print('Caught exception: \'{}\'. PMS5003 reading failed.'.format(type(exception).__name__))
+            print('W: pm25pms5003: Caught exception: \'{}\'. PMS5003 reading failed.'.format(type(exception).__name__))
             retry_count += 1
             if retry_count < RETRY_MAX:
                 print('Retrying... x{}'.format(retry_count))
@@ -70,7 +70,7 @@ if read_count > 0:
     pm10 /= read_count
     pm25 /= read_count
     date2 = datetime.datetime.now()
-    print('{} | PMS5003: Finished.'.format(date2))
+    print('I: pm25pms5003.py: {} | PMS5003: Finished.'.format(date2))
     date_str = '{}-{}-{}'.format(str(date2.year), str(date2.month), str(date2.day))
     time_str = '{}:{}:{}'.format(str(date2.hour), str(date2.minute), str(date2.second))
 else:
