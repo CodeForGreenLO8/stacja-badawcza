@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 
-# This script will ONCE poll the sensors, and simply send the result
-# to the mySQL database, which needs to be specified in the parameters.
-
-# This script is the initial product of experimentation, the actual script
-# that gets called by master.py performs multiple readings and sends average
-# data to the database, so that the results are more reliable and stable.
+# This script will poll the sensors multiple times, and return the results
+# to stdout.
 
 import sys
-import mysql.connector
 import datetime
 import Adafruit_DHT
 from time import sleep
@@ -18,20 +13,12 @@ sensor_args = { '11': Adafruit_DHT.DHT11,
                 '22': Adafruit_DHT.DHT22,
                 '2302': Adafruit_DHT.AM2302 }
 
-if len(sys.argv) == 9 and sys.argv[1] in sensor_args:
+if len(sys.argv) == 3 and sys.argv[1] in sensor_args:
     sensor  = sensor_args[sys.argv[1]]
     pin     = sys.argv[2]
-    mysql_info = {
-        'ip'     : sys.argv[3],
-        'port'   : sys.argv[4],
-        'user'   : sys.argv[5],
-        'passwd' : sys.argv[6],
-        'db'     : sys.argv[7],
-        'table'  : sys.argv[8]
-    }
 else:
-    print('Usage: sudo ./Adafruit_DHT.py [11|22|2302] <GPIO pin number> <db ip> <db ip port> <db user> <db passwd> <db name> <table name>')
-    print('Example: sudo ./Adafruit_DHT.py 2302 4 10.0.0.172 3306 user pass db table - Read from an AM2302 connected to GPIO pin #4, insert entry to table with given db credentials')
+    print('Usage: sudo ./Adafruit_DHT.py [11|22|2302] <GPIO pin number>')
+    print('Example: sudo ./Adafruit_DHT.py 22 4')
     sys.exit(1)
 
 # Read sensor data multiple times and make an average
@@ -73,32 +60,8 @@ if read_count > 0:
     print('I: AdafruitDHT_avg.py: {} | DHT22: Finished.'.format(date2))
     date_str = '{}-{}-{}'.format(str(date2.year), str(date2.month), str(date2.day))
     time_str = '{}:{}:{}'.format(str(date2.hour), str(date2.minute), str(date2.second))
+    print('{} {} {0:0.1f} {1:0.1f}'.format(date_str, time_str, temperature, humidity))
+    sys.exit(0)
 else:
     raise RuntimeError('DHT22 sensor critical failure!')
-    exit()
-
-db = mysql.connector.connect(
-     host   = mysql_info['ip'],     # your host, usually localhost
-#    port   = mysql_info['port'],   # port - For some reason the script doesn't work with the port explicitly stated.
-     user   = mysql_info['user'],   # your username
-     passwd = mysql_info['passwd'], # your password
-     db     = mysql_info['db'])     # name of the database
-
-# you must create a Cursor object. It will let you execute all the queries you need
-cur = db.cursor()
-
-# Write the information to the database
-sql = "INSERT INTO {} (date, time, temperature, humidity) VALUES (%s, %s, %s, %s);".format(mysql_info['table'])
-val = (date_str, time_str, temperature, humidity)
-cur.execute(sql, val)
-db.commit()
-
-# Note that sometimes you won't get a reading and
-# the results will be null (because Linux can't
-# guarantee the timing of calls to read the sensor).
-# If this happens try again!
-if humidity is not None and temperature is not None:
-    print('Temp={0:0.1f}*  Humidity={1:0.1f}%'.format(temperature, humidity))
-
-# Close the database
-db.close()
+    sys.exit(2)

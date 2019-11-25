@@ -4,10 +4,9 @@ import re
 import os
 
 class Script:
-    def __init__(self, name, args, mysql, command='python', logfile='sensors.log'):
+    def __init__(self, name, args, command='python', logfile='sensors.log'):
         self.name    = name
         self.args    = args
-        self.mysql   = mysql
         self.command = command
         self.logfile = logfile
         
@@ -21,15 +20,14 @@ class Script:
         return output
 
     def concat_callable(self):
-        return '{} {} {} {} >> {}'.format(self.command, self.name, self.args, self.mysql, self.logfile)
+        return '{} {} {} >> {}'.format(self.command, self.name, self.args, self.logfile)
         
     def __repr__(self):
         return """
 {}(
 script: {},
   exec: {},
- mysql: {},
    cmd: {}
 )
-""".format(re.search(r'/([^/]*)$', self.name).group(1), self.command, self.name, self.args, self.mysql, self.concat_callable())
+""".format(re.search(r'/([^/]*)$', self.name).group(1), self.command, self.name, self.args, self.concat_callable())
 
