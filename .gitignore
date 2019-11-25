@@ -1,5 +1,8 @@
-# Exclude python build files
+# Python build files
 sensors/**/__pycache__
 
-# Exclude Vim session files
+# Vim session files
 sensors/**/Session.vim
+
+# Sensors log file
+sensors/sensors.log

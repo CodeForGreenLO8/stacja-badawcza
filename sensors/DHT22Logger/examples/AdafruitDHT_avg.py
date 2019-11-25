@@ -70,7 +70,7 @@ if read_count > 0:
     humidity    /= read_count
     temperature /= read_count
     date2 = datetime.datetime.now()
-    print('{} | DHT22: Finished.'.format(date2))
+    print('I: AdafruitDHT_avg.py: {} | DHT22: Finished.'.format(date2))
     date_str = '{}-{}-{}'.format(str(date2.year), str(date2.month), str(date2.day))
     time_str = '{}:{}:{}'.format(str(date2.hour), str(date2.minute), str(date2.second))
 else:
