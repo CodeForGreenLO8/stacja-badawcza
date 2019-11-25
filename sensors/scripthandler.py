@@ -4,11 +4,10 @@ import re
 import os
 
 class Script:
-    def __init__(self, name, args, command='python', logfile='sensors.log'):
+    def __init__(self, name, args, command='python'):
         self.name    = name
         self.args    = args
         self.command = command
-        self.logfile = logfile
         
     def call(self):
         cmd = self.concat_callable()
@@ -20,7 +19,7 @@ class Script:
         return output
 
     def concat_callable(self):
-        return '{} {} {} >> {}'.format(self.command, self.name, self.args, self.logfile)
+        return '{} {} {}'.format(self.command, self.name, self.args)
         
     def __repr__(self):
         return """
