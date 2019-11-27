@@ -38,7 +38,7 @@ for i in range(read_count):
             h, t = Adafruit_DHT.read(sensor, pin)
             if (h == None or t == None):
                 raise ValueError('DHT22 Adafruit_DHT.read() failed!')
-            print('#{}\n\thumidity: {}\n\ttemperature: {}'.format(i+1, h, t))
+            print('#{}\n\t   humidity: {}\n\ttemperature: {}'.format(i+1, h, t))
             humidity += h
             temperature += t
             break
@@ -60,7 +60,7 @@ if read_count > 0:
     print('I: AdafruitDHT_avg.py: {} | DHT22: Finished.'.format(date2))
     date_str = '{}-{}-{}'.format(str(date2.year), str(date2.month), str(date2.day))
     time_str = '{}:{}:{}'.format(str(date2.hour), str(date2.minute), str(date2.second))
-    print('{} {} {0:0.1f} {1:0.1f}'.format(date_str, time_str, temperature, humidity))
+    print('{} {} {} {}'.format(date_str, time_str, temperature, humidity))
     sys.exit(0)
 else:
     raise RuntimeError('DHT22 sensor critical failure!')
