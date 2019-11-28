@@ -6,3 +6,6 @@ sensors/**/Session.vim
 
 # Sensors log file
 sensors/sensors.log
+
+# Sensors queue file
+sensors/data_queue.txt~
