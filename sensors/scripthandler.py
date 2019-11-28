@@ -21,6 +21,9 @@ class Script:
     def concat_callable(self):
         return '{} {} {}'.format(self.command, self.name, self.args)
         
+    def shortname(self):
+        return re.search(r'/([^/]*)$', self.name).group(1)
+
     def __repr__(self):
         return """
 {}(
@@ -28,5 +31,5 @@ script: {},
   exec: {},
    cmd: {}
 )
-""".format(re.search(r'/([^/]*)$', self.name).group(1), self.command, self.name, self.args, self.concat_callable())
+""".format(self.shortname(), self.command, self.name, self.args, self.concat_callable())
 
