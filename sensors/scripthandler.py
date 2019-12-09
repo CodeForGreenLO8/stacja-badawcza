@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import re
-import os
+import subprocess
+import sys
 
 class Script:
     def __init__(self, name, args, command='python'):
@@ -10,13 +11,16 @@ class Script:
         self.command = command
         
     def call(self):
-        cmd = self.concat_callable()
         try:
-            output = os.system(cmd)
+            # Source: https://code-maven.com/python-capture-stdout-stderr-exit
+            cmd = [self.command, script]
+            proc = subprocess.Popen(cmd, stdout = subprocess.PIPE)
+            stdout = str(proc.communicate()[0])[2:-3]
+            return stdout, proc.returncode
         except Exception as exception:
-            print('E: scripthandler.py: Exception occurred for \'{}\': \'{}\'. Reading failed.'.format(cmd, type(exception).__name__))
-            return -1
-        return output
+            errorstr = 'E: scripthandler.py: Exception occurred for \'{}\': \'{}\'. Reading failed.'.format(cmd, type(exception).__name__)
+            print(errorstr)
+            return tuple(errorstr, None)
 
     def concat_callable(self):
         return '{} {} {}'.format(self.command, self.name, self.args)
