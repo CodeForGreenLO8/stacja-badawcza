@@ -6,15 +6,14 @@ import sys
 
 class Script:
     def __init__(self, name, args, command='python'):
+        if not file_exists(name):
+            raise ValueError('File not found! (did you provide the full path?)')
         self.name    = name
         self.args    = args
         self.command = command
 
     def call(self):
-        '''Execute the script, return a tuple of its stdout and return value.
-        
-        In the case of any script failure, an error string will be printed a tuple of (errorstr, None) will be returned instead.
-        '''
+        '''Runs the script and returns a tuple of its stdout and return value.'''
         try:
             # Source: https://code-maven.com/python-capture-stdout-stderr-exit
             cmd = [self.command, script]
@@ -42,4 +41,12 @@ script: {},
    cmd: {}
 )
 """.format(self.shortname(), self.command, self.name, self.args, self.concat_callable())
+
+def file_exists(path):
+    try:
+        f = open(path)
+        f.close()
+        return True
+    except FileNotFoundError:
+        return False
 
