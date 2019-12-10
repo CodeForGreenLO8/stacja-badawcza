@@ -3,6 +3,7 @@
 import re
 import subprocess
 import sys
+from filehandler import *
 
 class Script:
     def __init__(self, name, args, command='python'):
@@ -41,12 +42,3 @@ script: {},
    cmd: {}
 )
 """.format(self.shortname(), self.command, self.name, self.args, self.concat_callable())
-
-def file_exists(path):
-    try:
-        f = open(path)
-        f.close()
-        return True
-    except FileNotFoundError:
-        return False
-
