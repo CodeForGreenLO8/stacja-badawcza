@@ -9,8 +9,12 @@ class Script:
         self.name    = name
         self.args    = args
         self.command = command
-        
+
     def call(self):
+        '''Execute the script, return a tuple of its stdout and return value.
+        
+        In the case of any script failure, an error string will be printed a tuple of (errorstr, None) will be returned instead.
+        '''
         try:
             # Source: https://code-maven.com/python-capture-stdout-stderr-exit
             cmd = [self.command, script]
@@ -18,14 +22,16 @@ class Script:
             stdout = str(proc.communicate()[0])[2:-3]
             return stdout, proc.returncode
         except Exception as exception:
-            errorstr = 'E: scripthandler.py: Exception occurred for \'{}\': \'{}\'. Reading failed.'.format(cmd, type(exception).__name__)
+            errorstr = 'E: scripthandler.py: call(): Exception occurred for \'{}\': \'{}\'. Reading failed.'.format(cmd, type(exception).__name__)
             print(errorstr)
             return tuple(errorstr, None)
 
     def concat_callable(self):
+        '''Returns a string which, if run, will execute the script (similar to call(), but doesn't execute anything)'''
         return '{} {} {}'.format(self.command, self.name, self.args)
-        
+
     def shortname(self):
+        '''Extracts the script filename from its full path and returns it.'''
         return re.search(r'/([^/]*)$', self.name).group(1)
 
     def __repr__(self):

@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
-# This script will poll the sensors multiple times, and return the results
-# to stdout.
+# This script will poll the sensors multiple times, and print the results
+# to stdout. The return value is as follows:
+# 0 - finished successfully
+# 1 - invalid argument(s)
+# 2 - sensor timeout (all readings failed, something is wrong)
 
 import sys
 import datetime
@@ -32,7 +35,7 @@ print('I: AdafruitDHT_avg.py: {} | DHT22: {} readings pending...'.format(date1, 
 for i in range(read_count):
     retry_count = 0
     # Try to grab a sensor reading. Use the read_retry method which will retry up
-    # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
+    # to RETRY_MAX times to get a sensor reading (waiting 2 seconds between each retry).
     while retry_count < RETRY_MAX:
         try:
             h, t = Adafruit_DHT.read(sensor, pin)
