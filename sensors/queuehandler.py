@@ -19,20 +19,42 @@ class QueueFile:
         self.name = name
 
     def push(self, *args):
-        queue = open(QUEUE_FILE, 'a')
-        queue.write()
-        queue.close() 
+        try:
+            queue = open(self.name, 'r')
+            lines = queue.readlines()
+            queue.close() 
+            lines.insert(0, ' '.join(*args))
+            queue = open(self.name, 'w')
+            queue.writelines(lines)
+            queue.close()
+        except Exception as exception:
+            print('E: queuehandler.py: push(): An exception occurred: {}'.format(type(exception).__name__))
 
     def top(self):
-        queue = open(QUEUE_FILE, 'r')
-        line = queue.readline()
-        queue.close() 
-        return line
+        try:
+            queue = open(self.name, 'r')
+            line = queue.readline()
+            queue.close() 
+            return line
+        except Exception as exception:
+            print('E: queuehandler.py: push(): An exception occurred: {}'.format(type(exception).__name__))
+            return None
 
     def pop(self):
-        queue = open(self.name, 'r')
-        lines = queue.readlines()[1:]
-        queue.close()
-        queue = open(self.name, 'w')
-        queue.writelines(lines)
-        queue.close()
+        try:
+            queue = open(self.name, 'r')
+            lines = queue.readlines()
+            queue.close()
+            if len(lines) == 1:
+                file_delete(self.name)
+            else:
+                lines = lines[1:]
+                queue = open(self.name, 'w')
+                queue.writelines(lines)
+                queue.close()
+        except Exception as exception:
+            print('E: queuehandler.py: pop(): An exception occurred: {}'.format(type(exception).__name__))
+
+    
+    def empty(self):
+        return file_exists(self.name)

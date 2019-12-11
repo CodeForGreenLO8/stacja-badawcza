@@ -19,7 +19,7 @@ class LogFile:
         '''Appends an arbitrary string to the end of the file.'''
         try:
             log = open(self.name, 'a')
-            log.write(string)
+            log.write('\n' + string)
             log.close()
         except Exception as exception:
             print('E: loghandler.py: append(): {} exception occurred!'.format(type(exception).__name__))

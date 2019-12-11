@@ -376,9 +376,7 @@ H	Session.vim	/^nnoremap H gT$/;"	m
 L	Session.vim	/^nnoremap L gt$/;"	m
 LIBRARY_NAME	PMS5003/Old/Makefile	/^LIBRARY_NAME=$(shell cat library\/setup.py | grep name | awk -F"'" '{print $$2}')$/;"	m
 LIBRARY_VERSION	PMS5003/Old/Makefile	/^LIBRARY_VERSION=$(shell cat library\/setup.py | grep version | awk -F"'" '{print $$2}')$/;"	m
-LOG_ENTRY	master.py	/^LOG_ENTRY      = '###' # each entry line and only entry lines in the log file MUST begin with this substring$/;"	v
-LOG_FILE	master.py	/^LOG_FILE       = 'sensors.log'$/;"	v
-LOG_PERSISTENT	master.py	/^LOG_PERSISTENT = 100   # the number of entries to keep (any older ones will be deleted)$/;"	v
+LogFile	loghandler.py	/^class LogFile:$/;"	c
 MMIO_ERROR_ARGUMENT	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	63;"	d
 MMIO_ERROR_DEVMEM	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	64;"	d
 MMIO_ERROR_DEVMEM	DHT22Logger/source/Raspberry_Pi/pi_mmio.h	30;"	d
@@ -395,6 +393,11 @@ MMIO_OE_ADDR	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	67;"	d
 MMIO_SUCCESS	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	62;"	d
 MMIO_SUCCESS	DHT22Logger/source/Raspberry_Pi/pi_mmio.h	29;"	d
 MMIO_SUCCESS	DHT22Logger/source/Raspberry_Pi_2/pi_2_mmio.h	29;"	d
+MYSQL_DB	master.py	/^MYSQL_DB   = '00335735_cfg'$/;"	v
+MYSQL_HOST	master.py	/^MYSQL_HOST = '62.129.212.254',$/;"	v
+MYSQL_PASS	master.py	/^MYSQL_PASS = 'zmierA0D4A0zamyQbioroznorodnosci',$/;"	v
+MYSQL_PORT	master.py	/^MYSQL_PORT = 3306,$/;"	v
+MYSQL_USER	master.py	/^MYSQL_USER = '00335735_cfg',$/;"	v
 MockSerial	PMS5003/Old/library/tests/test_setup.py	/^class MockSerial():$/;"	c
 MockSerialFail	PMS5003/Old/library/tests/test_setup.py	/^class MockSerialFail():$/;"	c
 PI_2_DHT_READ_H	DHT22Logger/source/Raspberry_Pi_2/pi_2_dht_read.h	22;"	d
@@ -419,7 +422,7 @@ PyInit_Beaglebone_Black_Driver	DHT22Logger/source/_Beaglebone_Black_Driver.c	/^P
 PyInit_Raspberry_Pi_2_Driver	DHT22Logger/source/_Raspberry_Pi_2_Driver.c	/^PyMODINIT_FUNC PyInit_Raspberry_Pi_2_Driver(void)$/;"	f
 PyInit_Raspberry_Pi_Driver	DHT22Logger/source/_Raspberry_Pi_Driver.c	/^PyMODINIT_FUNC PyInit_Raspberry_Pi_Driver(void)$/;"	f
 PyInit_Test_Driver	DHT22Logger/source/_Test_Driver.c	/^PyMODINIT_FUNC PyInit_Test_Driver(void)$/;"	f
-QUEUE_FILE	master.py	/^QUEUE_FILE = 'data_queue.txt~'$/;"	v
+QueueFile	queuehandler.py	/^class QueueFile:$/;"	c
 RASPBERRY_PI	DHT22Logger/Adafruit_DHT/platform_detect.py	/^RASPBERRY_PI     = 1$/;"	v
 RASPBERRY_PI	DHT22Logger/build/lib.linux-armv7l-2.7/Adafruit_DHT/platform_detect.py	/^RASPBERRY_PI     = 1$/;"	v
 RESET_HOUR	master.py	/^    RESET_HOUR = 23             # during this hour all flags will be reset to False (last_day will also be incremented)$/;"	v
@@ -463,7 +466,9 @@ __init__	PMS5003/Old/library/pms5003/__init__.py	/^    def __init__(self, device
 __init__	PMS5003/Old/library/pms5003/__init__.py	/^    def __init__(self, raw_data):$/;"	m	class:PMS5003Data
 __init__	PMS5003/Old/library/tests/test_setup.py	/^    def __init__(self):$/;"	m	class:MockSerial
 __init__	PMS5003/Old/library/tests/test_setup.py	/^    def __init__(self):$/;"	m	class:MockSerialFail
-__init__	scripthandler.py	/^    def __init__(self, name, args, command='python'):$/;"	m	class:Script
+__init__	loghandler.py	/^    def __init__(self, name, header, persistence):$/;"	m	class:LogFile
+__init__	queuehandler.py	/^    def __init__(self, name):$/;"	m	class:QueueFile
+__init__	scripthandler.py	/^    def __init__(self, name, args, mysql, command='python'):$/;"	m	class:Script
 __repr__	PMS5003/Old/library/build/lib.linux-armv7l-2.7/pms5003/__init__.py	/^    def __repr__(self):$/;"	m	class:PMS5003Data	file:
 __repr__	PMS5003/Old/library/build/lib.linux-x86_64-2.7/pms5003/__init__.py	/^    def __repr__(self):$/;"	m	class:PMS5003Data	file:
 __repr__	PMS5003/Old/library/build/lib/pms5003/__init__.py	/^    def __repr__(self):$/;"	m	class:PMS5003Data	file:
@@ -480,8 +485,10 @@ __version__	PMS5003/Old/library/pms5003/__init__.py	/^__version__ = '0.0.1'$/;"	
 _mock	PMS5003/Old/library/tests/test_setup.py	/^def _mock():$/;"	f
 `	Session.vim	/^inoremap <buffer> <silent> ` =AutoPairsInsert('`')$/;"	m
 ac	Session.vim	/^omap <buffer> ac <Plug>(GitGutterTextObjectOuterPending)$/;"	m
-args	master.py	/^    args  = '',$/;"	v
-args	master.py	/^    args  = '22 4',$/;"	v
+append	loghandler.py	/^    def append(self, string):$/;"	m	class:LogFile
+append_header	loghandler.py	/^    def append_header(self, below = ''):$/;"	m	class:LogFile
+args	master.py	/^    args  = ''$/;"	v
+args	master.py	/^    args  = '22 4'$/;"	v
 author	DHT22Logger/setup.py	/^      author            = 'Tony DiCola',$/;"	v
 author	PMS5003/Old/library/setup.py	/^    author='Philip Howard',$/;"	v
 author_email	DHT22Logger/setup.py	/^      author_email      = 'tdicola@adafruit.com',$/;"	v
@@ -495,7 +502,6 @@ bbb_mmio_set_high	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	/^static inline
 bbb_mmio_set_input	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	/^static inline void bbb_mmio_set_input(gpio_t gpio) {$/;"	f
 bbb_mmio_set_low	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	/^static inline void bbb_mmio_set_low(gpio_t gpio) {$/;"	f
 bbb_mmio_set_output	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	/^static inline void bbb_mmio_set_output(gpio_t gpio) {$/;"	f
-begin_log_entry	master.py	/^def begin_log_entry(fname):$/;"	f
 busy_wait_milliseconds	DHT22Logger/source/common_dht_read.c	/^void busy_wait_milliseconds(uint32_t millis) {$/;"	f
 cS	Session.vim	/^nmap cS <Plug>CSurround$/;"	m
 call	scripthandler.py	/^    def call(self):$/;"	m	class:Script
@@ -535,8 +541,11 @@ db	PMS5003/Old/examples/pm25pms5003.py	/^     db     = mysql_info['db'])     # n
 db	PMS5003/Old/examples/pm25pms5003.py	/^db = mysql.connector.connect($/;"	v
 description	DHT22Logger/setup.py	/^      description       = 'Library to get readings from the DHT11, DHT22, and AM2302 humidity and temperature sensors on a Raspberry Pi or Beaglebone Black.',$/;"	v
 ds	Session.vim	/^nmap ds <Plug>Dsurround$/;"	m
+empty	queuehandler.py	/^    def empty(self):$/;"	m	class:QueueFile
 ext_modules	DHT22Logger/setup.py	/^      ext_modules       = extensions)$/;"	v
 extensions	DHT22Logger/setup.py	/^extensions = []$/;"	v
+file_delete	filehandler.py	/^def file_delete(path):$/;"	f
+file_exists	filehandler.py	/^def file_exists(path):$/;"	f
 flags	master.py	/^    flags = {$/;"	v
 g	Session.vim	/^nnoremap <silent> g :call multiple_cursors#new("n", 0)$/;"	m
 get_platform	DHT22Logger/Adafruit_DHT/common.py	/^def get_platform():$/;"	f
@@ -547,6 +556,7 @@ gpio_t	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	/^} gpio_t;$/;"	t	typeref:
 gx	Session.vim	/^nmap gx <Plug>NetrwBrowseX$/;"	m
 gx	Session.vim	/^vmap gx <Plug>NetrwBrowseXVis$/;"	m
 gî	Session.vim	/^nnoremap <silent> gî :call multiple_cursors#select_all("n", 0)$/;"	m
+header	master.py	/^    header      = '######## START ENTRY ########',$/;"	v
 host	DHT22Logger/examples/AdafruitDHT.py	/^     host   = mysql_info['ip'],     # your host, usually localhost$/;"	v
 host	DHT22Logger/examples/dbtest.py	/^     host   = mysql_info['ip'],     # your host, usually localhost$/;"	v
 host	PMS5003/Old/examples/pm25pms5003.py	/^     host   = mysql_info['ip'],     # your host, usually localhost$/;"	v
@@ -569,6 +579,7 @@ license	PMS5003/Old/library/setup.py	/^    license='MIT',$/;"	v
 log	test.py	/^    log = open('sensors.log', 'r+')$/;"	v
 log	test.py	/^    log = open('sensors.log', 'w+')$/;"	v
 log	test.py	/^log = None$/;"	v
+log_file	master.py	/^log_file = LogFile($/;"	v
 login_open_sheet	DHT22Logger/examples/google_spreadsheet.py	/^def login_open_sheet(oauth_key_file, spreadsheet):$/;"	f
 long_description	DHT22Logger/setup.py	/^      long_description  = read('README.md'),$/;"	v
 long_description	PMS5003/Old/library/setup.py	/^    long_description=open('README.rst').read() + '\\n' + open('CHANGELOG.txt').read(),$/;"	v
@@ -576,10 +587,14 @@ module_methods	DHT22Logger/source/_Beaglebone_Black_Driver.c	/^static PyMethodDe
 module_methods	DHT22Logger/source/_Raspberry_Pi_2_Driver.c	/^static PyMethodDef module_methods[] = {$/;"	v	file:
 module_methods	DHT22Logger/source/_Raspberry_Pi_Driver.c	/^static PyMethodDef module_methods[] = {$/;"	v	file:
 module_methods	DHT22Logger/source/_Test_Driver.c	/^static PyMethodDef module_methods[] = {$/;"	v	file:
+mysql	master.py	/^    mysql = 'INSERT INTO dht22 (date, time, temperature, humidity) VALUES (%s, %s, %s, %s);',$/;"	v
+mysql	master.py	/^    mysql = 'INSERT INTO pms5003 (date, time, pm1, pm25, pm10) VALUES (%s, %s, %s, %s, %s);',$/;"	v
 mysql_info	DHT22Logger/examples/AdafruitDHT.py	/^    mysql_info = {$/;"	v
 mysql_info	DHT22Logger/examples/dbtest.py	/^mysql_info = {$/;"	v
 mysql_info	PMS5003/Old/examples/pm25pms5003.py	/^    mysql_info = {$/;"	v
+mysql_push	master.py	/^def mysql_push(query, values):$/;"	f
 name	PMS5003/Old/library/setup.py	/^    name='pms5003',$/;"	v
+name	master.py	/^    name        = 'sensors.log',$/;"	v
 name	master.py	/^    name  = '.\/DHT22Logger\/examples\/AdafruitDHT_avg.py',$/;"	v
 name	master.py	/^    name  = '.\/PMS5003\/Old\/examples\/pm25pms5003_avg.py',$/;"	v
 number	DHT22Logger/source/Beaglebone_Black/bbb_mmio.h	/^  int number;$/;"	m	struct:__anon1
@@ -591,6 +606,7 @@ packages	PMS5003/Old/library/setup.py	/^    packages=['pms5003'],$/;"	v
 passwd	DHT22Logger/examples/AdafruitDHT.py	/^     passwd = mysql_info['passwd'], # your password$/;"	v
 passwd	DHT22Logger/examples/dbtest.py	/^     passwd = mysql_info['passwd'], # your password$/;"	v
 passwd	PMS5003/Old/examples/pm25pms5003.py	/^     passwd = mysql_info['passwd'], # your password$/;"	v
+persistence	master.py	/^    persistence = 100$/;"	v
 pi2_dht_module	DHT22Logger/source/_Raspberry_Pi_2_Driver.c	/^static struct PyModuleDef pi2_dht_module = {$/;"	v	typeref:struct:PyModuleDef	file:
 pi_2_dht_read	DHT22Logger/source/Raspberry_Pi_2/pi_2_dht_read.c	/^int pi_2_dht_read(int type, int pin, float* humidity, float* temperature) {$/;"	f
 pi_2_mmio_gpio	DHT22Logger/source/Raspberry_Pi_2/pi_2_mmio.c	/^volatile uint32_t* pi_2_mmio_gpio = NULL;$/;"	v
@@ -646,8 +662,11 @@ pms5003	PMS5003/Old/examples/all.py	/^pms5003 = PMS5003()$/;"	v
 pms5003	PMS5003/Old/examples/pm25pms5003.py	/^pms5003 = PMS5003()$/;"	v
 pms5003	PMS5003/Old/examples/pm25pms5003_avg.py	/^pms5003 = PMS5003()$/;"	v
 pms5003	PMS5003/Old/examples/specific.py	/^pms5003 = PMS5003()$/;"	v
+pop	queuehandler.py	/^    def pop(self):$/;"	m	class:QueueFile
 project_urls	PMS5003/Old/library/setup.py	/^    project_urls={'GitHub': 'https:\/\/www.github.com\/pimoroni\/pms5003-python'},$/;"	v
+push	queuehandler.py	/^    def push(self, *args):$/;"	m	class:QueueFile
 q	DHT22Logger/examples/dbtest.py	/^q = input('Insert a default reading into \\'{}\\' table? (y\/n)').format(mysql_info['table'])$/;"	v
+queue_file	master.py	/^queue_file = QueueFile('data_queue.txt~')$/;"	v
 read	DHT22Logger/Adafruit_DHT/Beaglebone_Black.py	/^def read(sensor, pin):$/;"	f
 read	DHT22Logger/Adafruit_DHT/Raspberry_Pi.py	/^def read(sensor, pin):$/;"	f
 read	DHT22Logger/Adafruit_DHT/Raspberry_Pi_2.py	/^def read(sensor, pin):$/;"	f
@@ -707,7 +726,8 @@ time_str	DHT22Logger/examples/dbtest.py	/^    time_str = '{}:{}:{}'.format(str(d
 time_str	DHT22Logger/examples/sensortest.py	/^time_str = '{}:{}:{}'.format(str(date.hour), str(date.minute), str(date.second))$/;"	v
 time_str	PMS5003/Old/examples/pm25pms5003.py	/^time_str = '{}:{}:{}'.format(str(date.hour), str(date.minute), str(date.second))$/;"	v
 time_str	PMS5003/Old/examples/pm25pms5003_avg.py	/^    time_str = '{}:{}:{}'.format(str(date2.hour), str(date2.minute), str(date2.second))$/;"	v
-trunc_log	master.py	/^def trunc_log(fname):$/;"	f
+top	queuehandler.py	/^    def top(self):$/;"	m	class:QueueFile
+truncate	loghandler.py	/^    def truncate(self):$/;"	m	class:LogFile
 url	DHT22Logger/setup.py	/^      url               = 'https:\/\/github.com\/adafruit\/Adafruit_Python_DHT\/',$/;"	v
 url	PMS5003/Old/library/setup.py	/^    url='http:\/\/www.pimoroni.com',$/;"	v
 user	DHT22Logger/examples/AdafruitDHT.py	/^     user   = mysql_info['user'],   # your username$/;"	v
