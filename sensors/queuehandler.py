@@ -16,13 +16,23 @@ from filehandler import *
 
 class QueueFile:
     def __init__(self, name):
-        pass
+        self.name = name
 
     def push(self, *args):
-        pass
+        queue = open(QUEUE_FILE, 'a')
+        queue.write()
+        queue.close() 
 
     def top(self):
-        pass
+        queue = open(QUEUE_FILE, 'r')
+        line = queue.readline()
+        queue.close() 
+        return line
 
     def pop(self):
-        pass
+        queue = open(self.name, 'r')
+        lines = queue.readlines()[1:]
+        queue.close()
+        queue = open(self.name, 'w')
+        queue.writelines(lines)
+        queue.close()

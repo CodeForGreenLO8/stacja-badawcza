@@ -6,11 +6,12 @@ import sys
 from filehandler import *
 
 class Script:
-    def __init__(self, name, args, command='python'):
+    def __init__(self, name, args, mysql, command='python'):
         if not file_exists(name):
             raise ValueError('File not found! (did you provide the full path?)')
         self.name    = name
         self.args    = args
+        self.mysql   = mysql
         self.command = command
 
     def call(self):
