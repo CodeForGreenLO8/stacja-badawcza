@@ -20,7 +20,7 @@ def file_delete(path):
             os.remove(path)
             return True
         except Exception as exception:
-            print('E: Exception occurred: {}'.format(type(exception).__name__)
+            print('E: Exception occurred: {}'.format(type(exception).__name__))
             return False
     else:
         print('W: The specified file doesn\'t exist!')

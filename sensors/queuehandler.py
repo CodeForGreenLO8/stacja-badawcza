@@ -20,10 +20,11 @@ class QueueFile:
 
     def push(self, *args):
         try:
+            open(self.name, 'a').close() # Create file if it doesn't exist
             queue = open(self.name, 'r')
             lines = queue.readlines()
             queue.close() 
-            lines.insert(0, ' '.join(*args))
+            lines.insert(0, ' '.join(str(i) for i in args) + '\n')
             queue = open(self.name, 'w')
             queue.writelines(lines)
             queue.close()
@@ -35,7 +36,7 @@ class QueueFile:
             queue = open(self.name, 'r')
             line = queue.readline()
             queue.close() 
-            return line
+            return line[:-1]
         except Exception as exception:
             print('E: queuehandler.py: push(): An exception occurred: {}'.format(type(exception).__name__))
             return None
@@ -57,4 +58,4 @@ class QueueFile:
 
     
     def empty(self):
-        return file_exists(self.name)
+        return not file_exists(self.name)
