@@ -18,9 +18,9 @@ class LogFile:
     def append(self, string):
         '''Appends an arbitrary string to the end of the file.'''
         try:
-            log = open(self.name, 'a')
-            log.write('\n' + string)
-            log.close()
+            f = open(self.name, 'a')
+            f.write(string + '\n')
+            f.close()
         except Exception as exception:
             print('E: loghandler.py: append(): {} exception occurred!'.format(type(exception).__name__))
 
@@ -31,11 +31,10 @@ class LogFile:
         '''
         try:
             f = open(self.name, 'a')
-            f.write('\n{}\n{}\n'.format(self.header, below))
+            f.write('\n{}\n{}'.format(self.header, below + '\n'*(below != '')))
             f.close()
         except Exception as exception:
-            print('E: loghandler.py: append_header(): {} exception occurred!'.format(type(exception).__name__)
-
+            print('E: loghandler.py: append_header(): {} exception occurred!'.format(type(exception).__name__))
 
     def truncate(self):
         '''Truncates the log file, so that it doesn't grow too big in size, as denoted by the self.persistence variable'''
