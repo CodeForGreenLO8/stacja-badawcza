@@ -44,6 +44,8 @@
 ,t	Session.vim	/^nmap <silent> ,t :Vex!$/;"	m
 -from	PMS5003/Old/Makefile	/^	pandoc --from=markdown --to=rst -o library\/README.rst README.md$/;"	m
 0	Session.vim	/^normal! 0$/;"	m
+033|	Session.vim	/^normal! 033|$/;"	m
+09|	Session.vim	/^normal! 09|$/;"	m
 <BS>	Session.vim	/^inoremap <buffer> <silent> <BS> =AutoPairsDelete()$/;"	m
 <Down>	Session.vim	/^inoremap <expr> <Down> pumvisible() ? "\\" : "\\<Down>"$/;"	m
 <F11>	Session.vim	/^map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscreen")$/;"	m
@@ -417,7 +419,7 @@ PMS5003_SOF	PMS5003/Old/library/build/lib.linux-armv7l-2.7/pms5003/__init__.py	/
 PMS5003_SOF	PMS5003/Old/library/build/lib.linux-x86_64-2.7/pms5003/__init__.py	/^PMS5003_SOF = bytearray(b'\\x42\\x4d')$/;"	v
 PMS5003_SOF	PMS5003/Old/library/build/lib/pms5003/__init__.py	/^PMS5003_SOF = bytearray(b'\\x42\\x4d')$/;"	v
 PMS5003_SOF	PMS5003/Old/library/pms5003/__init__.py	/^PMS5003_SOF = bytearray(b'\\x42\\x4d')$/;"	v
-POLLING_RATE	master.py	/^    POLLING_RATE = 300          # how long each while loop iteration will wait for at the end$/;"	v
+POLLING_RATE	master.py	/^POLLING_RATE = 300 # how long (in seconds) this script will wait after checking current datetime to see if scripts need to be run$/;"	v
 PyInit_Beaglebone_Black_Driver	DHT22Logger/source/_Beaglebone_Black_Driver.c	/^PyMODINIT_FUNC PyInit_Beaglebone_Black_Driver(void)$/;"	f
 PyInit_Raspberry_Pi_2_Driver	DHT22Logger/source/_Raspberry_Pi_2_Driver.c	/^PyMODINIT_FUNC PyInit_Raspberry_Pi_2_Driver(void)$/;"	f
 PyInit_Raspberry_Pi_Driver	DHT22Logger/source/_Raspberry_Pi_Driver.c	/^PyMODINIT_FUNC PyInit_Raspberry_Pi_Driver(void)$/;"	f
@@ -571,7 +573,7 @@ is_binary_install	DHT22Logger/setup.py	/^def is_binary_install():$/;"	f
 j	Session.vim	/^nnoremap j gj$/;"	m
 k	Session.vim	/^nnoremap k gk$/;"	m
 keywords	PMS5003/Old/library/setup.py	/^    keywords='Raspberry Pi',$/;"	v
-last_day	master.py	/^    last_day = time.now().day   # if the last registered day isn't the current day, flags will be reset regardless of RESET_HOUR$/;"	v
+last_day	master.py	/^    last_day   = time.now().day # if the last registered day isn't the current day, flags will be reset regardless of RESET_HOUR$/;"	v
 libraries	DHT22Logger/setup.py	/^                                    libraries=['rt'],$/;"	v
 libraries	DHT22Logger/setup.py	/^                                libraries=['rt'],$/;"	v
 license	DHT22Logger/setup.py	/^      license           = 'MIT',$/;"	v
@@ -695,6 +697,9 @@ run_full	master.py	/^def run_full(script):$/;"	f
 s	test.py	/^    s = log.readline()[:-1]$/;"	v
 s:cpo_save	Session.vim	/^let s:cpo_save=&cpo$/;"	v
 s:l	Session.vim	/^let s:l = 1 - ((0 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	Session.vim	/^let s:l = 188 - ((51 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	Session.vim	/^let s:l = 24 - ((23 * winheight(0) + 26) \/ 52)$/;"	v
+s:l	Session.vim	/^let s:l = 36 - ((19 * winheight(0) + 26) \/ 52)$/;"	v
 s:so_save	Session.vim	/^let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0$/;"	v
 s:sx	Session.vim	/^let s:sx = expand("<sfile>:p:r")."x.vim"$/;"	v
 s:wipebuf	Session.vim	/^  let s:wipebuf = bufnr('%')$/;"	v
@@ -746,6 +751,7 @@ ySS	Session.vim	/^nmap ySS <Plug>YSsurround$/;"	m
 ySs	Session.vim	/^nmap ySs <Plug>YSsurround$/;"	m
 ys	Session.vim	/^nmap ys <Plug>Ysurround$/;"	m
 yss	Session.vim	/^nmap yss <Plug>Yssurround$/;"	m
+zo	Session.vim	/^normal! zo$/;"	m
 zt	Session.vim	/^normal! zt$/;"	m
 {	Session.vim	/^inoremap <buffer> <silent> { =AutoPairsInsert('{')$/;"	m
 }	Session.vim	/^inoremap <buffer> <silent> } =AutoPairsInsert('}')$/;"	m

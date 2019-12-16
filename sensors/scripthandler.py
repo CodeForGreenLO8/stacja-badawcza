@@ -18,8 +18,8 @@ class Script:
         '''Runs the script and returns a tuple of its stdout and return value.'''
         try:
             # Source: https://code-maven.com/python-capture-stdout-stderr-exit
-            cmd = [self.command, script]
-            proc = subprocess.Popen(cmd, stdout = subprocess.PIPE)
+            cmd = '{} {} {}'.format(self.command, self.name, self.args)
+            proc = subprocess.Popen(cmd, stdout = subprocess.PIPE, shell=True)
             stdout = str(proc.communicate()[0])[2:-3]
             return stdout, proc.returncode
         except Exception as exception:
