@@ -56,3 +56,5 @@ class LogFile:
         except Exception as exception:
             print('E: loghandler.py: truncate(): {} exception occurred when opening {}!'.format(type(exception).__name__, self.name))
 
+    def upload(self):
+        os.system('dbu upload ./sensors.log /')
