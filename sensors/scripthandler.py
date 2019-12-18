@@ -21,6 +21,10 @@ class Script:
             cmd = '{} {} {}'.format(self.command, self.name, self.args)
             proc = subprocess.Popen(cmd, stdout = subprocess.PIPE, shell=True)
             stdout = str(proc.communicate()[0])[2:-3]
+            # For some reason the caught stdout has all the escaped characters encoded literally,
+            # (i.e. instead of newlines it will have '\n' and so on). That is why it is necessary
+            # to convert those sequences to their actual counterparts.
+            stdout = stdout.replace(r'\n', '\n').replace(r'\t','\t')
             return stdout, proc.returncode
         except Exception as exception:
             errorstr = 'E: scripthandler.py: call(): Exception occurred for \'{}\': \'{}\'. Reading failed.'.format(cmd, type(exception).__name__)
